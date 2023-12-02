@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audi-Customs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Bootstrap JS and Popper.js links (you may need to adjust the paths) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <img src="/media/audibg.jpg" class="img-fluid" class="" alt="...">
+
+
+    <div class="mx-auto p-2" style="width: 85%;" style="height: 85%;">
+
+        <h2>Audi Customs Autoshop</h2>
+        <!-- Input fields for adding a car -->
+
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01"><button type="button"
+                    class="btn btn-secondary">Manufacturer :</button></label>
+            <select class="form-select" id="Manufacturer" onchange="updateModels()">
+                <option selected>Choose Manufacturer...</option>
+                <option value="Audi">Audi</option>
+                <option value="Volkswagen">Volkswagen</option>
+                <option value="Skoda">Skoda</option>
+                <option value="Cupra">Cupra</option>
+            </select>
+        </div>
+
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect02">
+                <button type="button" class="btn btn-secondary">Model :</button>
+            </label>
+            <select class="form-select" id="Model">
+                <option selected disabled>Choose Model...</option>
+            </select>
+        </div>
+
+
+
+        <div class="input-group mb-3">
+            <label class="input-group-text">
+                <button type="button" class="btn btn-secondary">Color :</button></label>
+            <select class="form-select" id="Color">
+                <option selected>Choose Color...</option>
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Silver">Silver</option>
+                <option value="Gray">Gray</option>
+                <option value="Blue">Blue</option>
+                <option value="Red">Red</option>
+                <option value="Green">Green</option>
+                <option value="Brown">Brown</option>
+                <option value="Beige">Beige</option>
+                <option value="Yellow">Yellow</option>
+                <option value="Orange">Orange</option>
+                <option value="Purple">Purple</option>
+                <option value="Gold">Gold</option>
+                <option value="Bronze">Bronze</option>
+                <option value="Charcoal">Charcoal</option>
+                <option value="Turquoise">Turquoise</option>
+                <option value="Champagne">Champagne</option>
+                <option value="Pearl">Pearl</option>
+            </select>
+
+
+        </div>
+
+
+
+        <div class="input-group mb-3">
+            <label class="input-group-text">
+                <button type="button" class="btn btn-secondary">Year :</button>
+            </label>
+            <select class="form-select" id="Year">
+                <option selected>Choose Year...</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+                <option value="2009">2009</option>
+                <option value="2008">2008</option>
+                <option value="2007">2007</option>
+                <option value="2006">2006</option>
+                <option value="2005">2005</option>
+                <option value="2004">2004</option>
+                <option value="2003">2003</option>
+                <option value="2002">2002</option>
+                <option value="2001">2001</option>
+                <option value="2000">2000</option>
+                <option value="older">older</option>
+            </select>
+        </div>
+
+        <button type="button" class="btn btn-secondary">Plate Number :</button><input id="Plate"><br><br>
+
+        <!-- Buttons for adding and deleting cars -->
+        <button type="button" class="btn btn-dark" onclick="addAcar()">Add Car</button>
+        <button type="button" class="btn btn-dark" onclick="deleteCar()">Delete Car</button>
+        <button type="button" class="btn btn-dark" onclick="displayCarDetails()">Display Car Details</button>
+    </div>
+
+    </div>
+
+    <script>
+
+
+
+
+
+        // Define models for each manufacturer
+        const modelsByManufacturer = {
+            Audi: ['A1', 'A3', 'A4', `A6`, `A8`, 'Q3', 'Q5', `Q7`, `Q8`, `TT`, `S3`, `S4`, `S5`, `S6`, `S8`, `RS3`, `RS4`, `RS5`, `RS6`, `RS7`,],
+            Volkswagen: ['Golf', 'Passat', 'Tiguan', 'Atlas', 'Beetle', 'Jetta', 'Polo', 'Touareg', 'Amarok', 'Scirocco', 'Corrado', 'Phaeton', 'Arteon', 'Up!', 'Eos', 'Fox', 'Lupo', 'Sharan', 'T-Roc', 'ID.3'],
+            Skoda: ['Octavia', 'Superb', 'Kodiaq', 'Karoq', 'Scala', 'Fabia', 'Rapid', 'Yeti', 'Citigo', 'Enyaq', 'Roomster', 'Felicia', 'Favorit', 'Forman', 'Kamiq', 'Pickup', 'Laura', 'Estelle', '130', '1000 MBX'],
+            Cupra: ['Formentor', 'Leon', 'Ateca', 'Ibiza', 'Cupra R', 'Cupra GT', 'Cupra TCR', 'Cupra E-Racer', 'Cupra RST', 'Cupra 280', 'Cupra 290', 'Cupra 300', 'Cupra 310', 'Cupra 300 Carbon Edition', 'Cupra 290 Black Edition', 'Cupra 265', 'Cupra 280 Sub8', 'Cupra Evo 17', 'Cupra 280 Ultimate Edition',]
+
+
+        };
+
+        function updateModels() {
+            // Get the selected manufacturer
+            const selectedManufacturer = document.getElementById('Manufacturer').value;
+
+            // Get the model select element
+            const modelSelect = document.getElementById('Model');
+
+            // Clear existing options
+            modelSelect.innerHTML = '<option selected disabled>Choose Model...</option>';
+
+            // Populate with models based on the selected manufacturer
+            if (selectedManufacturer && modelsByManufacturer[selectedManufacturer]) {
+                modelsByManufacturer[selectedManufacturer].forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model;
+                    option.text = model;
+                    modelSelect.add(option);
+                });
+            }
+        }
+
+
+        let cars = [];
+
+        function addAcar() {
+            const manufacturer = document.getElementById("Manufacturer").value;
+            const color = document.getElementById("Color").value;
+            const year = document.getElementById("Year").value;
+            const plate = document.getElementById("Plate").value;
+            const model = document.getElementById("Model").value;
+
+            if (manufacturer && color && year && plate && model) {
+                // Add the car to the array
+                cars.push({
+                    "Manufacturer": manufacturer,
+                    "Model": model,
+                    "Color": color,
+                    "Year": year,
+                    "Plate": plate,
+                });
+
+                // Display a message with the index of the added car
+                const lastIndex = cars.length - 1;
+                alert(`Car added successfully! Index: ${lastIndex}`);
+
+                // Clear the input fields
+                document.getElementById("Manufacturer").value = "";
+                document.getElementById("Color").value = "";
+                document.getElementById("Year").value = "";
+                document.getElementById("Plate").value = "";
+                document.getElementById("Model").value = "";
+
+
+                console.log(cars);
+            } else {
+                alert("Please fill in all the fields before adding a car.");
+            }
+        }
+        function displayCarDetails() {
+            if (cars.length > 0) {
+                // Create a string with the list of car details
+                let detailsList = "Car Details:\n";
+                cars.forEach((car, index) => {
+                    detailsList += `${index}: ${car.Manufacturer} ${car.Model} ${car.Color} ${car.Year} (${car.Plate})\n`;
+                });
+
+                // Show an alert with the list of car details
+                alert(detailsList);
+            } else {
+                alert("No cars in the autoshop.");
+            }
+        }
+
+
+        function deleteCar() {
+            if (cars.length > 0) {
+                // Display a list of cars with their indices
+                let carList = "List of Cars:\n";
+                cars.forEach((car, index) => {
+                    carList += `${index}: ${car.Manufacturer} ${car.Model}  ${car.Color} (${car.Year}) (${car.Plate})\n`;
+                });
+
+                // Prompt the user to enter the index of the car to delete
+                const indexToDelete = prompt(`${carList}Enter the index of the car to delete (or click Cancel to abort):`);
+
+                // Check if the user clicked "Cancel" or closed the prompt
+                if (indexToDelete === null) {
+                    alert("Operation canceled. No cars were deleted.");
+                } else {
+                    // Check if the input is a valid number and within the array bounds
+                    if (!isNaN(indexToDelete) && indexToDelete >= 0 && indexToDelete < cars.length) {
+                        // Manually create a new array without the specified car
+                        let newCars = [];
+                        for (let i = 0; i < cars.length; i++) {
+                            if (i !== parseInt(indexToDelete)) {
+                                newCars.push(cars[i]);
+                            }
+                        }
+
+                        // Update the cars array
+                        cars = newCars;
+
+                        alert("Car deleted successfully.");
+                        console.log("Updated cars array:", cars);
+                    } else {
+                        alert("Invalid input. Please enter a valid index.");
+                    }
+                }
+            } else {
+                alert("No entries to delete.");
+            }
+        }
+
+    </script>
+</body>
+
+</html>
